@@ -1,94 +1,57 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 
-export type ImageType = { id: number; url: string };
+export type ImageType = {
+    id: number;
+    backgroundImageUrl: string;
+    content: JSX.Element;
+};
 
-const ImageCarousel: React.FC<{ images?: ImageType[] }> = ({ images }) => {
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedImage, setSelectedImage] = useState<ImageType>();
-  const carouselItemsRef = useRef<HTMLDivElement[] | null[]>([]);
+const ImageCarousel: React.FC<{ slides?: ImageType[] }> = ({slides}) => {
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [selectedImage, setSelectedImage] = useState<ImageType>();
 
-  useEffect(() => {
-    if (images && images[0]) {
-      carouselItemsRef.current = carouselItemsRef.current.slice(
-        0,
-        images.length
-      );
+    useEffect(() => {
+        if (slides && slides[0]) {
+            setSelectedImageIndex(0);
+            setSelectedImage(slides[0]);
+        }
+    }, [slides]);
 
-      setSelectedImageIndex(0);
-      setSelectedImage(images[0]);
-    }
-  }, [images]);
+    const handleSelectedImageChange = (newIdx: number) => {
+        if (slides && slides.length > 0) {
+            setSelectedImage(slides[newIdx]);
+            setSelectedImageIndex(newIdx);
+        }
+    };
 
-  const handleSelectedImageChange = (newIdx: number) => {
-    if (images && images.length > 0) {
-      setSelectedImage(images[newIdx]);
-      setSelectedImageIndex(newIdx);
-      if (carouselItemsRef?.current[newIdx]) {
-        carouselItemsRef?.current[newIdx]?.scrollIntoView({
-          inline: "center",
-          behavior: "smooth"
-        });
-      }
-    }
-  };
-
-  const handleRightClick = () => {
-    if (images && images.length > 0) {
-      let newIdx = selectedImageIndex + 1;
-      if (newIdx >= images.length) {
-        newIdx = 0;
-      }
-      handleSelectedImageChange(newIdx);
-    }
-  };
-
-  const handleLeftClick = () => {
-    if (images && images.length > 0) {
-      let newIdx = selectedImageIndex - 1;
-      if (newIdx < 0) {
-        newIdx = images.length - 1;
-      }
-      handleSelectedImageChange(newIdx);
-    }
-  };
-
-  return (
-    <div className="carousel-container">
-      <h2 className="header">Image Carousel</h2>
-      <div
-        className="selected-image"
-        style={{ backgroundImage: `url(${selectedImage?.url})` }}
-      />
-      <div className="carousel">
-        <div className="carousel__images">
-          {images &&
-            images.map((image, idx) => (
-              <div
-                onClick={() => handleSelectedImageChange(idx)}
-                style={{ backgroundImage: `url(${image.url})` }}
-                key={image.id}
-                className={`carousel__image ${
-                  selectedImageIndex === idx && "carousel__image-selected"
-                }`}
-                ref={(el) => (carouselItemsRef.current[idx] = el)}
-              />
+    return (
+        <div className="carousel-container">
+            {slides &&
+            slides.map((image, idx) => (
+                <div
+                    key={`slide${idx}`}
+                    className={`${idx === selectedImageIndex ? '' : 'hidden'} selected-image`}
+                    style={{backgroundImage: `linear-gradient(to left, rgba(0,0,0,0.3),rgba(0,0,0,0)),url(${slides[idx]?.backgroundImageUrl})`}}
+                >
+                    <div className="slide-content">
+                        {image.content}
+                    </div>
+                </div>
             ))}
+            <div className="image-selector">
+                {slides &&
+                slides.map((image, idx) => (
+                    <div
+                        key={`slector${idx}`}
+                        onClick={() => handleSelectedImageChange(idx)}
+                        className={idx === selectedImageIndex ? 'selected' : ''}
+                    >
+                        {('0' + (idx + 1)).slice(-2)}
+                    </div>
+                ))}
+            </div>
         </div>
-        <button
-          className="carousel__button carousel__button-left"
-          onClick={handleLeftClick}
-        >
-          Prev
-        </button>
-        <button
-          className="carousel__button carousel__button-right"
-          onClick={handleRightClick}
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ImageCarousel;
