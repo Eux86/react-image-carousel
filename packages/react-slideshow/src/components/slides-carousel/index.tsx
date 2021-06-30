@@ -22,10 +22,11 @@ const Slideshow: React.FC<ISlideshowProps> = ({slides, delay = 5000}) => {
   }, [slides]);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       const totalSlides = slides.length;
       setSelectedImageIndex((selectedImageIndex + 1) % totalSlides)
     }, delay)
+    return (() => clearTimeout(timeout));
   })
 
   const handleSelectedImageChange = (newIdx: number) => {
@@ -38,14 +39,14 @@ const Slideshow: React.FC<ISlideshowProps> = ({slides, delay = 5000}) => {
     <div className="full-height reset-margin">
       <div className="carousel-container full-height reset-margin">
         {slides &&
-        slides.map((image, idx) => (
+        slides.map((slide, idx) => (
           <div
             key={`slide${idx}`}
             className={`${idx === selectedImageIndex ? '' : 'hidden'} selected-image`}
             style={{backgroundImage: `linear-gradient(to left, rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(${slides[idx]?.backgroundImageUrl})`}}
           >
             <div className="slide-content">
-              {image.content}
+              {slide.content}
             </div>
           </div>
         ))}

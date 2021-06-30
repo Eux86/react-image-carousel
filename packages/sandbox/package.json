@@ -1,0 +1,53 @@
+{
+  "name": "eux86-react-slideshow-monorepo",
+  "version": "0.0.8",
+  "private": true,
+  "main": "build/index.js",
+  "author": "Eugenio Di Tullio",
+  "description": "A resusable component to show images and content in a slideshow",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1",
+    "eux86-react-slideshow": "^0.0.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start &",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "rimraf": "^2.7.1"
+  }
+}

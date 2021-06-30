@@ -1,0 +1,45 @@
+{
+  "name": "eux86-react-slideshow",
+  "version": "0.0.8",
+  "private": false,
+  "main": "build/index.js",
+  "author": "Eugenio Di Tullio",
+  "description": "A resusable component to show images and content in a slideshow",
+  "dependencies": {
+    "typescript": "^4.1.2"
+  },
+  "scripts": {
+    "start": "tsc-watch --onSuccess \"npm run copy-files\" &",
+    "clean": "rimraf build",
+    "copy-files": "copyfiles -u 3 src/components/slides-carousel/*.css build/",
+    "build": "npm run clean && tsc -p tsconfig.json && npm run copy-files",
+    "publish-package": "npm run build && npm publish"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "copyfiles": "^2.4.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^2.7.1",
+    "tsc-watch": "^4.4.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}

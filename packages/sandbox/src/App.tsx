@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Slideshow, {ISlide} from "./components/slides-carousel";
 import './style.css';
+import Slideshow, {ISlide} from 'eux86-react-slideshow';
 
 
 interface ISlideContentProps {
