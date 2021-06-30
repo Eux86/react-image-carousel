@@ -1,81 +1,69 @@
-import {useEffect, useState} from "react";
-import ImageCarousel, {ImageType} from "./components/image-carousel";
-import "./styles.css";
+import React, {useEffect, useState} from "react";
+import Slideshow, {ISlide} from "./components/slides-carousel";
+import './style.css';
+
 
 interface ISlideContentProps {
-    quoteText: string;
-    quoteAuthor: string;
-    buttonText: string;
-    callback: ()=>void;
+  quoteText: string;
+  quoteAuthor: string;
+  buttonText: string;
+  callback: () => void;
 }
+
 const SlideContent: React.FunctionComponent<ISlideContentProps> = ({quoteText, quoteAuthor, buttonText, callback}) => (
-    <>
-        <h2>{quoteText}</h2>
-        <h3>{quoteAuthor}</h3>
-        {callback && (
-            <button onClick={callback}>{buttonText}</button>
-        )}
-    </>
+  <>
+    <h2>{quoteText}</h2>
+    <h3>{quoteAuthor}</h3>
+    {callback && (
+      <button onClick={callback}>{buttonText}</button>
+    )}
+  </>
 )
 
 export default function App() {
-    const [images, setImages] = useState<ImageType[]>([
-        {
-            id: 0,
-            backgroundImageUrl: 'https://www.outventure-milano.it/images/slide/slide01.jpg',
-            content: (
-                <SlideContent
-                    quoteText="Quando uomini e montagna si incontrano, grandi cose accadono"
-                    quoteAuthor="WILLIAM BLAKE"
-                    buttonText="Chi siamo"
-                    callback={() => alert('not implemented')}
-                />
-            )
-        },
-        {
-            id: 1,
-            backgroundImageUrl: 'https://www.outventure-milano.it/images/slide/slide02.jpg',
-            content: (
-                <SlideContent
-                    quoteText="I Monti sono maestri muti e fanno discepoli silenziosi."
-                    quoteAuthor="JOHANN WOLFGANG VON GOETHE"
-                    buttonText="Leggi il regolamento"
-                    callback={() => alert('not implemented')}
-                />
-            )
-        },
-        {
-            id: 3,
-            backgroundImageUrl: 'https://www.outventure-milano.it/images/slide/slide03.jpg',
-            content: (
-                <SlideContent
-                    quoteText="Ognuno di noi ha una quota prediletta in montagna, un paesaggio che gli somiglia e dove si sente bene."
-                    quoteAuthor="LE OTTO MONTAGNE, PAOLO COGNETTI"
-                    buttonText="Guarda le nostre prossime uscite"
-                    callback={() => alert('not implemented')}
-                />
-            )
-        },
-    ]);
+  const [images, setImages] = useState<ISlide[]>([
+    {
+      id: 0,
+      backgroundImageUrl: 'https://www.outventure-milano.it/images/slide/slide01.jpg',
+      content: (
+        <SlideContent
+          quoteText="Quando uomini e montagna si incontrano, grandi cose accadono"
+          quoteAuthor="WILLIAM BLAKE"
+          buttonText="Chi siamo"
+          callback={() => alert('not implemented')}
+        />
+      )
+    },
+    {
+      id: 1,
+      backgroundImageUrl: 'https://www.outventure-milano.it/images/slide/slide02.jpg',
+      content: (
+        <SlideContent
+          quoteText="I Monti sono maestri muti e fanno discepoli silenziosi."
+          quoteAuthor="JOHANN WOLFGANG VON GOETHE"
+          buttonText="Leggi il regolamento"
+          callback={() => alert('not implemented')}
+        />
+      )
+    },
+    {
+      id: 3,
+      backgroundImageUrl: 'https://www.outventure-milano.it/images/slide/slide03.jpg',
+      content: (
+        <SlideContent
+          quoteText="Ognuno di noi ha una quota prediletta in montagna, un paesaggio che gli somiglia e dove si sente bene."
+          quoteAuthor="LE OTTO MONTAGNE, PAOLO COGNETTI"
+          buttonText="Guarda le nostre prossime uscite"
+          callback={() => alert('not implemented')}
+        />
+      )
+    },
+  ]);
 
-    // useEffect(() => {
-    //     setImages(Array.from(Array(10).keys()).map((id) => ({
-    //         id,
-    //         backgroundImageUrl: `https://picsum.photos/1000?random=${id}`,
-    //         content: (
-    //             <div>
-    //                 <h2>Title</h2>
-    //                 <h3>Emotional quote number: ${id}</h3>
-    //                 <button>action</button>
-    //             </div>
-    //         )
-    //     })));
-    // }, []);
-
-    return (
-        <div className="App" style={{height: '800px'}}>
-            <h1>Carousel test</h1>
-            <ImageCarousel slides={images}/>
-        </div>
-    );
+  return (
+    <>
+      <h1>Carousel test</h1>
+      <Slideshow slides={images}/>
+    </>
+  );
 }
